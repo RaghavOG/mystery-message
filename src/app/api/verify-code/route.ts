@@ -7,6 +7,17 @@ export async function POST(request :Request) {
     await dbConnect();
     try {
         const {username, code} = await request.json();
+        // const {username, code, token} = await request.json();
+        
+        // if (!token) {
+        //     return Response.json({
+        //         success: false,
+        //         message: "Unauthorized Access",
+        //     },{
+        //         status: 404,
+        //     });
+        // }
+        // const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         const decodedUsername = decodeURIComponent(username);
         const user = await UserModel.findOne({ username: decodedUsername });

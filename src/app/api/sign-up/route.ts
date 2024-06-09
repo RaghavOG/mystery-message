@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 import { hash } from "crypto";
@@ -28,6 +29,9 @@ export async function POST(reqest :Request) {
 
       const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
 
+      let user;
+
+
         if(existingUserByEmail){
                 if(existingUserByEmail.isVerified){
                     return Response.json({
@@ -47,6 +51,7 @@ export async function POST(reqest :Request) {
                     existingUserByEmail.verifyCodeExpiry = new Date();
                     existingUserByEmail.verifyCodeExpiry.setHours(existingUserByEmail.verifyCodeExpiry.getHours() + 1);
                     await existingUserByEmail.save();
+                    let user;
                 }
      
       }
@@ -69,7 +74,11 @@ export async function POST(reqest :Request) {
             });
             
             await newUser.save();
+            user = newUser;
       }
+
+      const token = jwt.sign({ userId: user._id }, "process.env.JWT_SECRET", { expiresIn: '1h' });
+
         // send verification email
         const emailResponse = await sendVerificationEmail(email, username, verifyCode);
 
