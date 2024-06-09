@@ -29,7 +29,7 @@ const page = () => {
   const [isChekingUsername, setIsChekingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const debounced = useDebounceCallback((value) => setUsername(value), 300);
+  const debounced = useDebounceCallback((value) => setUsername(value), 700);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -119,12 +119,16 @@ const page = () => {
                       }}
                     />
 
-                    {/* {isChekingUsername && (
-                      <Loader2 className="animate-spin w-4 h-4" />
-                    )} */}
-
+                   
 
                   </FormControl>
+                   {isChekingUsername && (
+                      <Loader2 className="animate-spin w-4 h-4" />
+                    )}
+                    {!isChekingUsername && usernameMessage && !usernameMessage.includes("available") && (
+      <p className="text-red-500 text-sm">{usernameMessage}</p>
+    )}
+
                   <FormMessage />
                 </FormItem>
               )}

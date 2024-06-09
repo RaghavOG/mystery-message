@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.390.0",
     "mongoose": "^8.4.1",
     "next": "14.2.3",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/next-auth": "^3.15.0",
     "@types/node": "^20",
     "@types/react": "^18",
